@@ -2,17 +2,17 @@ require 'sinatra'
 require 'slim'
 
 class WordsAPI < Sinatra::Base
-	get '/choosewords' do
+	get '/api/choosewords' do
 		'["foo", "bar", "baz"]'
 	end
 
-	post '/submit' do
+	post '/api/submit' do
 		print request.body.read
 
 		200
 	end
 
-	get '/game' do
+	get '/api/poem' do
 
 	end
 

@@ -28,7 +28,7 @@ function submit() {
 			};
 	});
 
-	$.post('/submit', JSON.stringify(words), null, 'json');
+	$.post('/api/submit', JSON.stringify(words), null, 'json');
 
 	// return words;
 }
@@ -36,7 +36,7 @@ function submit() {
 $(window).load(function () {
 	$(".submit-button").click(submit);
 
-	$.getJSON('/choosewords', function(data) {
+	$.getJSON('/api/choosewords', function(data) {
 		console.log("hey hey hey");
 		buildWords(data);
 	});
