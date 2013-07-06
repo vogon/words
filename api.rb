@@ -1,6 +1,8 @@
 require 'sinatra'
 require 'slim'
 
+POEMS = {}
+
 class WordsAPI < Sinatra::Base
 	get '/api/choosewords' do
 		'["foo", "bar", "baz"]'
@@ -13,7 +15,7 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/api/poem' do
-		
+
 	end
 
 	get '/' do

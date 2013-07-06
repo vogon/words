@@ -1,8 +1,39 @@
+var draggingMagnet = undefined;
+
+function handleMagnetDragStart(e) {
+	// alert("dragstart");
+	e.originalEvent.dataTransfer.effectAllowed = 'move';
+	draggingMagnet = this;
+}
+
+function handleMagnetDragEnd(e) {
+	draggingMagnet = undefined;
+}
+
+function handleMagnetDragOver(e) {
+	// alert("dragover");
+
+	if (e.preventDefault) {
+		e.preventDefault();
+	}
+
+	e.originalEvent.dataTransfer.dropEffect = 'move';
+
+	return false;
+}
+
+function handleMagnetDrop(e) {
+	// alert("drop");
+
+	$(e.target).append(draggingMagnet);
+}
+
 function buildWord(word, x, y) {
 	var span = $('<span class="magnet" draggable="true"/>');
 	span.text(word);
-	span.draggable();
 
+	$(span).on("dragstart", handleMagnetDragStart);
+	$(span).on("dragend", handleMagnetDragEnd);
 	$('body').append(span);
 }
 
@@ -35,6 +66,8 @@ function submit() {
 
 $(window).load(function () {
 	$(".submit-button").click(submit);
+	$(".poem-row-words").on("dragover", handleMagnetDragOver);
+	$(".poem-row-words").on("drop", handleMagnetDrop);
 
 	$.getJSON('/api/choosewords', function(data) {
 		console.log("hey hey hey");

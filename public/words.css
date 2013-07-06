@@ -3,3 +3,8 @@
 	left: 0px;
 	bottom: 0px;
 }
+
+.poem-row-words {
+	border: 1px solid;
+	width: 100%;
+}
