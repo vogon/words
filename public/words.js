@@ -25,6 +25,23 @@ function handleMagnetDragOver(e) {
 function handleMagnetDrop(e) {
 	// alert("drop");
 
+	var dropX, dropY;
+	dropX = e.originalEvent.x;
+	dropY = e.originalEvent.y;
+
+	for (var childIndex = 0; childIndex < e.target.children.length; childIndex++) {
+		var child = $(e.target.children[childIndex]);
+
+		if (dropX < $(child).position().left) {
+			// console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
+			$(child).before(draggingMagnet);
+			return false;
+		} else {
+			// console.log("drop X (" + dropX + ") after child " + childIndex + " X (" + $(child).position().left + ")");
+		}
+	}
+
+	// console.log("drop X (" + dropX + ") after all children, appending");
 	$(e.target).append(draggingMagnet);
 }
 
@@ -70,7 +87,8 @@ $(window).load(function () {
 	$(".poem-row-words").on("drop", handleMagnetDrop);
 
 	$.getJSON('/api/choosewords', function(data) {
-		console.log("hey hey hey");
 		buildWords(data);
 	});
+
+	console.log("hey hey hey");
 });
