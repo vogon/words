@@ -35,6 +35,6 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/' do
-		slim :words
+		slim :compose_page_words
 	end
 end

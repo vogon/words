@@ -13,8 +13,8 @@ function handleMagnetDragEnd(e) {
 function handleMagnetDragOver(e) {
 	// alert("dragover");
 
-	if ($(e.target).hasClass("poem-row-words") || 
-		$(e.target).parents().hasClass("poem-row-words")) {
+	if ($(e.target).hasClass("composerLineContent") || 
+		$(e.target).parents().hasClass("composerLineContent")) {
 		if (e.preventDefault) {
 			e.preventDefault();
 		}
@@ -35,7 +35,7 @@ function handleMagnetDrop(e) {
 	dropX = e.originalEvent.x;
 	dropY = e.originalEvent.y;
 
-	var realDropTarget = $(e.target).closest(".poem-row-words");
+	var realDropTarget = $(e.target).closest(".composerLineContent");
 
 	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
 		var child = $(realDropTarget.children()[childIndex]);
@@ -54,12 +54,12 @@ function handleMagnetDrop(e) {
 }
 
 function buildWord(word, x, y) {
-	var span = $('<span class="magnet" draggable="true"/>');
-	span.text(word);
+	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
+	magnet.children(".magnet").text(word);
 
-	$(span).on("dragstart", handleMagnetDragStart);
-	$(span).on("dragend", handleMagnetDragEnd);
-	$('body').append(span);
+	magnet.on("dragstart", handleMagnetDragStart);
+	magnet.on("dragend", handleMagnetDragEnd);
+	$('.wordList').append(magnet);
 }
 
 function buildWords(words) {
@@ -71,7 +71,7 @@ function buildWords(words) {
 function submit() {
 	var lines = [];
 
-	$('.poem-row-words').each(function (index) {
+	$('.composerLineContent').each(function (index) {
 		lines[index] = $(this).children('.magnet')
 							  .map(function (index, word) { return word.innerText })
 							  .get();
@@ -83,9 +83,9 @@ function submit() {
 }
 
 $(window).load(function () {
-	$(".submit-button").click(submit);
-	$(".poem-row-words").on("dragover", handleMagnetDragOver);
-	$(".poem-row-words").on("drop", handleMagnetDrop);
+	$(".saveButton").click(submit);
+	$(".composerLineContent").on("dragover", handleMagnetDragOver);
+	$(".composerLineContent").on("drop", handleMagnetDrop);
 
 	$.getJSON('/api/newpoem', function(data) {
 		buildWords(data.words);

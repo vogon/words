@@ -1,0 +1,206 @@
+@charset "UTF-8";
+/* CSS Document */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+
+body{
+	line-height: 1;
+	background-color:#FAFAFA;
+	padding-top:42px;
+}
+/*-----------------------------------------------basic styling------------------------------------------------*/
+
+h1{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-weight:bold;
+	color:black;
+	font-size:22px;
+}
+h3{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-style:italic;
+	color:black;
+	font-size:14px;
+	line-height:22px;
+}
+
+
+/*----------------------------------------------header styling------------------------------------------------*/
+
+#header{
+	padding-left:25px;
+	position:fixed;
+	top:0px;
+	height:40px;
+	width:100%;
+	background-color:#EFEFEF;
+	margin-bottom:2px;
+}
+
+#header a{
+	font-family:"Courier New", Courier, monospace;
+	color:#979DAA;
+	font-size:14px;
+	text-decoration:none;
+	font-weight:bold;
+	line-height:40px;
+	letter-spacing:2px;
+}
+#header img{
+	float:left;
+}
+
+ul{
+	float:left;
+	list-style-type:none;
+	margin:0;
+	padding:0;
+}
+
+#header li{
+	display:inline;
+	padding-left:20px;
+	padding-right:20px;
+}
+
+/*--------------------------------------------------title box---------------------------------------------------*/
+#titlebox{
+	padding-left:40px;
+	padding-top:40px;
+	padding-bottom:40px;
+	width:260px;
+	background-color:#EFEFEF;
+	float:left;
+}
+
+.titleList li{
+	padding-top:7px;
+	padding-bottom:7px;
+}
+
+.words{
+	padding:7px;
+	margin-bottom:4px;
+	background-color:#FAFAFA;
+	min-width:50px;
+	float: left;
+    clear: left;	
+}
+
+.wordList{
+	padding-top:7px;
+}
+
+.wordList h1{
+	font-weight:normal;
+}
+
+#prettyTitleBox{
+	position:fixed;
+	left:0px;
+	top:42px;
+	width:300px;
+	height:1000px;
+	background-color:#EFEFEF;
+	z-index:-1;
+}
+
+/*-------------------------------------------content modules styling--------------------------------------------*/
+.contentBox{
+	width:700px;
+}
+
+.contentOptions{
+	padding-bottom:30px;
+	float:left;
+	width:50px;	
+}
+
+.content{
+	padding-bottom:30px;
+	float:left;
+	width:650px;
+}
+
+/*----------------------------------------------composer styling------------------------------------------------*/
+#composeTitleSelect{
+	color:#BBBBBB;
+}
+
+#composeModal{
+	position:fixed;
+	left:300px;
+	top:85px;
+	height:400px;
+	width:700px;
+}
+
+.composeButton p{
+	font-family:Georgia, "Times New Roman", Times, serif;
+	font-size:14px;
+	font-weight:bold;
+	color:#000101;
+}
+
+#composerDragDrop{
+	width:auto;
+	height:170px;
+	background:#EFEFEF;
+}
+
+#saveButton{
+	float:left;
+	font-family:"Courier New", Courier, monospace;
+	color:white;
+	font-size:14px;
+	font-weight:bold;
+	line-height:40px;
+	letter-spacing:2px;
+	background:#6BADDE;
+	padding-left:15px;
+	padding-right:15px;
+	margin-right:15px;
+}
+
+#clearButton{
+	float:left;
+	font-family:"Courier New", Courier, monospace;
+	color:white;
+	font-size:14px;
+	font-weight:bold;
+	line-height:40px;
+	letter-spacing:2px;
+	background:#BBBBBB;
+	padding-left:15px;
+	padding-right:15px;
+	margin-right:15px;
+}
+
+/*Colin's hacks*/
+.composerLineContent{
+	width: 100%;
+}
