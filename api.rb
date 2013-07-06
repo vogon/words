@@ -13,7 +13,7 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/api/poem' do
-
+		
 	end
 
 	get '/' do
