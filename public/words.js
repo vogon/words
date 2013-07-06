@@ -69,22 +69,15 @@ function buildWords(words) {
 }
 
 function submit() {
-	var words = [];
+	var lines = [];
 
-	$('.magnet').each(function(index) {
-		// console.log($(this));
-
-		var pos = $(this).position();
-
-		words[index] = 
-			{
-				word: $(this).text(),
-				x: pos.left,
-				y: pos.top
-			};
+	$('.poem-row-words').each(function (index) {
+		lines[index] = $(this).children('.magnet')
+							  .map(function (index, word) { return word.innerText })
+							  .get();
 	});
 
-	$.post('/api/submit', JSON.stringify(words), null, 'json');
+	$.post('/api/submitpoem', JSON.stringify(lines), null, 'json');
 
 	// return words;
 }
@@ -94,8 +87,8 @@ $(window).load(function () {
 	$(".poem-row-words").on("dragover", handleMagnetDragOver);
 	$(".poem-row-words").on("drop", handleMagnetDrop);
 
-	$.getJSON('/api/choosewords', function(data) {
-		buildWords(data);
+	$.getJSON('/api/newpoem', function(data) {
+		buildWords(data.words);
 	});
 
 	console.log("hey hey hey");
