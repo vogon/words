@@ -13,36 +13,44 @@ function handleMagnetDragEnd(e) {
 function handleMagnetDragOver(e) {
 	// alert("dragover");
 
-	if (e.preventDefault) {
-		e.preventDefault();
+	if ($(e.target).hasClass("poem-row-words") || 
+		$(e.target).parents().hasClass("poem-row-words")) {
+		if (e.preventDefault) {
+			e.preventDefault();
+		}
+
+		e.originalEvent.dataTransfer.dropEffect = 'move';
+
+		return false;
+	} else {
+		return true;
 	}
-
-	e.originalEvent.dataTransfer.dropEffect = 'move';
-
-	return false;
 }
 
 function handleMagnetDrop(e) {
 	// alert("drop");
 
+	// run through all the words in this line of the poem, drop in order
 	var dropX, dropY;
 	dropX = e.originalEvent.x;
 	dropY = e.originalEvent.y;
 
-	for (var childIndex = 0; childIndex < e.target.children.length; childIndex++) {
-		var child = $(e.target.children[childIndex]);
+	var realDropTarget = $(e.target).closest(".poem-row-words");
+
+	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
+		var child = $(realDropTarget.children()[childIndex]);
 
 		if (dropX < $(child).position().left) {
-			// console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
+			console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
 			$(child).before(draggingMagnet);
 			return false;
 		} else {
-			// console.log("drop X (" + dropX + ") after child " + childIndex + " X (" + $(child).position().left + ")");
+			console.log("drop X (" + dropX + ") after child " + childIndex + " X (" + $(child).position().left + ")");
 		}
 	}
 
-	// console.log("drop X (" + dropX + ") after all children, appending");
-	$(e.target).append(draggingMagnet);
+	console.log("drop X (" + dropX + ") after all children, appending");
+	$(realDropTarget).append(draggingMagnet);
 }
 
 function buildWord(word, x, y) {
