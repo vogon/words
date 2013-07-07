@@ -313,6 +313,25 @@ ul{
 
 /*----------------------------------------------Landing styling------------------------------------------------*/
 
+
+#HaughtyMan{
+	position:absolute;
+	top:50%;
+	margin-top:-400px;
+	left:12%;
+	margin-left:-100px;
+	overflow:visible;
+}
+
+#NaughtyMan{
+	position:absolute;
+	top:50%;
+	margin-top:-400px;
+	right:12%;
+	margin-right:-150px;
+	overflow:visible;
+}
+
 #landingBox{
 	position:absolute;
 	top:50%;
@@ -361,7 +380,7 @@ ul{
 	width:160px;
 }
 
-#landingComposeButton img{
+#landingButtonBox img{
 	float:left;
 }
 
