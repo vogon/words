@@ -9,7 +9,8 @@ html
 
 body
 	div id="header"
-    	img src="/images/HandN_Logo_Small.png"
+        a href="/"
+    	   img src="/images/HandN_Logo_Small.png"
         ul
   			li 
             	a href="/poems" New
@@ -48,7 +49,7 @@ body
                     h3 = "by #{poem.author}"
                     p class="poem"
                         - poem.lines.each_with_index do |line, l_index|
-                            = line.join(' ')
+                            = bake_line(line)
                             - if l_index != poem.lines.length - 1 then
                                 br
                     

@@ -1,14 +1,15 @@
 doctype transitional
 html
 	head
-		link rel="stylesheet" type="text/css" href="handn_stylesheet.css"
+		link rel="stylesheet" type="text/css" href="/handn_stylesheet.css"
 		script src="http://code.jquery.com/jquery-1.10.2.js"
 		script src="words.js"
 		title Haughty or Naughty Magnetic Poetry Game
 
 	body
 		div id="header"
-			img src="images/HandN_Logo_Small.png"
+			a href="/"
+				img src="images/HandN_Logo_Small.png"
 			ul
 				li
 					a href="/poems" New
@@ -19,9 +20,14 @@ html
 
 		div id="prettyTitleBox"
 
-		div class="titlebox wordTitlebox hidden"
-			h3 class="titleLine"
-			div class="wordList"
+		div id="wordTitlebox" class="titlebox wordTitlebox hidden"
+			div id="thematicWords"
+				h3 class="titleLine"
+				div class="wordList"
+
+			div id="commonWords"
+				h3 class="titleLine"
+				div class="wordList"
 
 		div class="titlebox realTitlebox"
 			h3 Titles
@@ -39,7 +45,7 @@ html
 					h1 id="composeTitle" class="select-title" Select a Title
 					h3 id="composeAuthor"
 						| by&nbsp;
-						span id="authorName" contenteditable="true"
+						span id="authorName" class="anonymous" contenteditable="true"
 							| anonymous
 						
 						span id="authorEditHint" &nbsp;(edit)

@@ -79,6 +79,18 @@ function dropIntoWordList(e) {
 	}
 }
 
+function clearComposer() {
+	$(".composerLineContent").empty();
+}
+
+function startEditingAuthor() {
+	var dom = $("#authorName")[0];
+	dom.focus();
+	window.getSelection().selectAllChildren(dom);
+
+	return true;
+}
+
 function themeMode() {
 	$('.wordTitlebox').addClass('hidden');
 	$('.realTitlebox').removeClass('hidden');
@@ -89,22 +101,22 @@ function wordMode() {
 	$('.wordTitlebox').removeClass('hidden');
 }
 
-function buildWord(word) {
+function buildWord(titlebox, word) {
 	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
 	magnet.children(".magnet").text(word);
 
 	magnet.on("dragstart", handleMagnetDragStart);
 	magnet.on("dragend", handleMagnetDragEnd);
-	$('.wordList').append(magnet);
+	$(titlebox).find('.wordList').append(magnet);
 }
 
-function buildWords(theme, words) {
-	$(".titleLine").text(theme);
+function buildWords(titlebox, theme, words) {
+	$(titlebox).find(".titleLine").text(theme);
 
 	words.sort();
 
 	for (var idx in words) {
-		buildWord(words[idx]);
+		buildWord(titlebox, words[idx]);
 	}
 
 	wordMode();
@@ -112,7 +124,8 @@ function buildWords(theme, words) {
 
 function getWords(themeId) {
 	$.getJSON('/api/newpoem/' + themeId, function(data) {
-		buildWords(data.theme, data.words);
+		buildWords($("#thematicWords"), "thematic words", data.words);
+		buildWords($("#commonWords"), "common words", data.common_words);
 	});
 }
 
@@ -153,14 +166,7 @@ function showSaved() {
 }
 
 function authorChanged() {
-	var author = $("#authorName").text();
-
-	// disgusting hack to deal with the poor behavior of doubleclicks
-	if (author.indexOf("(edit)") != -1) {
-		author = author.replace("(edit)", "");
-		$("#authorName").text(author);
-	}
-
+	$("#authorName").removeClass("anonymous");
 	$("#authorName").addClass("nonymous");
 	$("#authorEditHint").addClass("hidden");
 }
@@ -187,6 +193,8 @@ function submit() {
 
 $(window).load(function () {
 	$("#saveButton").click(submit);
+	$("#clearButton").click(clearComposer);
+
 	$(".wordList").on("dragover", handleMagnetDragOver);
 	$(".wordList").on("drop", dropIntoWordList);
 
@@ -194,6 +202,9 @@ $(window).load(function () {
 	$(".composerLineContent").on("drop", dropIntoComposer);
 
 	$("#authorName").on("keyup", authorChanged);
+
+	$("#authorName").on("focus", startEditingAuthor);
+	$("#authorEditHint").click(startEditingAuthor);
 
 	getThemes();
 
