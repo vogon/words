@@ -12,10 +12,11 @@ require './dbmodels'
 
 initialize_models?
 
-POEMS = []
+POEMS = {}
 
 Db::Poem.all.each do |dbpoem|
-	POEMS << Poem.depersist(dbpoem)
+	poem = Poem.depersist(dbpoem)
+	POEMS[poem.id] = poem
 end
 
 HN_VIEW_API = false
@@ -62,7 +63,7 @@ class WordsAPI < Sinatra::Base
 
 	get "/api/poem/:id" do
 		poem_id = params[:id].to_i
-		poem = POEMS[poem_id - 1]
+		poem = POEMS[poem_id]
 
 		if poem then
 			return poem.to_json
@@ -101,7 +102,7 @@ class WordsAPI < Sinatra::Base
 
 	post '/api/haughtify/:id' do
 		poem_id = params[:id].to_i
-		poem = POEMS[poem_id - 1]
+		poem = POEMS[poem_id]
 
 		print poem.inspect
 
@@ -118,7 +119,7 @@ class WordsAPI < Sinatra::Base
 
 	post '/api/naughtify/:id' do
 		poem_id = params[:id].to_i
-		poem = POEMS[poem_id - 1]
+		poem = POEMS[poem_id]
 
 		if poem then
 			poem.naughty += 1
@@ -137,7 +138,7 @@ class WordsAPI < Sinatra::Base
 
 	get '/poems' do
 		# sort poems by id, descending
-		poems_by_id = POEMS.sort_by { |poem| -poem.id }
+		poems_by_id = POEMS.values.sort_by { |poem| -poem.id }
 		result = poems_by_id.take(10)
 
 		slim :view_page, locals: {poems: result, header: :new}
@@ -145,7 +146,7 @@ class WordsAPI < Sinatra::Base
 
 	get '/poems/haughtiest' do
 		# sort poems by haughtiness, descending
-		poems_by_haughtiness = POEMS.sort_by { |poem| -poem.haughty }
+		poems_by_haughtiness = POEMS.values.sort_by { |poem| -poem.haughty }
 		result = poems_by_haughtiness.take(10)
 
 		slim :view_page, locals: {poems: result, header: :haughty}
@@ -153,7 +154,7 @@ class WordsAPI < Sinatra::Base
 
 	get '/poems/naughtiest' do
 		# sort poems by naughtiness, descending
-		poems_by_naughtiness = POEMS.sort_by { |poem| -poem.naughty }
+		poems_by_naughtiness = POEMS.values.sort_by { |poem| -poem.naughty }
 		result = poems_by_naughtiness.take(10)
 
 		slim :view_page, locals: {poems: result, header: :naughty}
