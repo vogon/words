@@ -136,7 +136,13 @@ function submit() {
 							  .get();
 	});
 
-	$.post('/api/submitpoem', JSON.stringify(lines), showSaved);
+	var poem = {
+		title: $("#composeTitle").text(),
+		author: $("#authorName").text(),
+		lines: lines
+	};
+
+	$.post('/api/submitpoem', JSON.stringify(poem), showSaved);
 
 	// return words;
 }

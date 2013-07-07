@@ -49,13 +49,13 @@ class WordsAPI < Sinatra::Base
 	end
 
 	post '/api/submitpoem' do
-		lines = JSON.parse(request.body.read)
-		print lines
+		poem = JSON.parse(request.body.read)
+		print poem
 
-		next_id = POEMS.length + 1
-		poem = Poem.new(next_id, "<<<temp>>>", "Cliff", lines)
+		next_id = POEMS.keys.max + 1
+		poem = Poem.new(next_id, poem["title"], poem["author"], poem["lines"])
 
-		POEMS << poem
+		POEMS[next_id] = poem
 		poem.persist!
 
 		200
