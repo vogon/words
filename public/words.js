@@ -13,8 +13,8 @@ function handleMagnetDragEnd(e) {
 function handleMagnetDragOver(e) {
 	// alert("dragover");
 
-	if ($(e.target).hasClass("composerLineContent") || 
-		$(e.target).parents().hasClass("composerLineContent")) {
+	if ($(e.target).closest(".composerLineContent") ||
+		$(e.target).closest(".wordList")) {
 		if (e.preventDefault) {
 			e.preventDefault();
 		}
@@ -27,10 +27,7 @@ function handleMagnetDragOver(e) {
 	}
 }
 
-function handleMagnetDrop(e) {
-	// alert("drop");
-
-	// run through all the words in this line of the poem, drop in order
+function dropIntoComposer(e) {
 	var dropX, dropY;
 	dropX = e.originalEvent.x;
 	dropY = e.originalEvent.y;
@@ -38,7 +35,7 @@ function handleMagnetDrop(e) {
 	var realDropTarget = $(e.target).closest(".composerLineContent");
 
 	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
-		var child = $(realDropTarget.children()[childIndex]);
+		var child = realDropTarget.children()[childIndex];
 
 		if (dropX < $(child).position().left) {
 			console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
@@ -50,11 +47,17 @@ function handleMagnetDrop(e) {
 	}
 
 	console.log("drop X (" + dropX + ") after all children, appending");
-	$(realDropTarget).append(draggingMagnet);
+	realDropTarget.append(draggingMagnet);
 }
 
-function buildWord(word, x, y) {
-	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
+function dropIntoWordList(e) {
+	var realDropTarget = $(e.target).closest(".wordList");
+
+	realDropTarget.append(draggingMagnet);
+}
+
+function buildWord(word) {
+	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div><br/>');
 	magnet.children(".magnet").text(word);
 
 	magnet.on("dragstart", handleMagnetDragStart);
@@ -64,7 +67,7 @@ function buildWord(word, x, y) {
 
 function buildWords(words) {
 	for (var idx in words) {
-		buildWord(words[idx], 100, 100);
+		buildWord(words[idx]);
 	}
 }
 
@@ -84,8 +87,11 @@ function submit() {
 
 $(window).load(function () {
 	$(".saveButton").click(submit);
+	$(".wordList").on("dragover", handleMagnetDragOver);
+	$(".wordList").on("drop", dropIntoWordList);
+
 	$(".composerLineContent").on("dragover", handleMagnetDragOver);
-	$(".composerLineContent").on("drop", handleMagnetDrop);
+	$(".composerLineContent").on("drop", dropIntoComposer);
 
 	$.getJSON('/api/newpoem/1', function(data) {
 		buildWords(data.words);

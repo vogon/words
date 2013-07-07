@@ -107,9 +107,9 @@ ul{
 	margin-bottom:4px;
 	background-color:#FAFAFA;
 	min-width:50px;
-	float: left;
-    clear: left;
-    display: inline;
+	/*float: left;*/
+    /*clear: left;*/
+    display: inline-block;
 }
 
 .wordList{
@@ -205,7 +205,7 @@ ul{
 .composerLineContent{
 	width: 100%;
 }
-
+/*
 .composerLineContent .words{
 	clear: none;
-}
+}*/
