@@ -75,6 +75,10 @@ function buildTitle(title) {
 
 }
 
+function showSaved() {
+	$("#savedMessage").removeClass("hidden");
+}
+
 function submit() {
 	var lines = [];
 
@@ -84,7 +88,7 @@ function submit() {
 							  .get();
 	});
 
-	$.post('/api/submitpoem', JSON.stringify(lines), null, 'json');
+	$.post('/api/submitpoem', JSON.stringify(lines), showSaved);
 
 	// return words;
 }
