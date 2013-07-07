@@ -33,13 +33,14 @@ function dropIntoComposer(e) {
 	dropY = e.originalEvent.y;
 
 	var realDropTarget = $(e.target).closest(".composerLineContent");
+	var magnetClone = $(draggingMagnet).clone(true);
 
 	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
 		var child = realDropTarget.children()[childIndex];
 
 		if (dropX < $(child).position().left) {
 			console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
-			$(child).before(draggingMagnet);
+			$(child).before(magnetClone);
 			return false;
 		} else {
 			console.log("drop X (" + dropX + ") after child " + childIndex + " X (" + $(child).position().left + ")");
@@ -47,13 +48,12 @@ function dropIntoComposer(e) {
 	}
 
 	console.log("drop X (" + dropX + ") after all children, appending");
-	realDropTarget.append(draggingMagnet);
+	realDropTarget.append(magnetClone);
+	return false;
 }
 
 function dropIntoWordList(e) {
-	var realDropTarget = $(e.target).closest(".wordList");
-
-	realDropTarget.append(draggingMagnet);
+	draggingMagnet.remove();
 }
 
 function themeMode() {
@@ -77,6 +77,8 @@ function buildWord(word) {
 
 function buildWords(theme, words) {
 	$(".titleLine").text(theme);
+
+	words.sort();
 
 	for (var idx in words) {
 		buildWord(words[idx]);
