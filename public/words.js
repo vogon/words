@@ -89,22 +89,22 @@ function wordMode() {
 	$('.wordTitlebox').removeClass('hidden');
 }
 
-function buildWord(word) {
+function buildWord(titlebox, word) {
 	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
 	magnet.children(".magnet").text(word);
 
 	magnet.on("dragstart", handleMagnetDragStart);
 	magnet.on("dragend", handleMagnetDragEnd);
-	$('.wordList').append(magnet);
+	$(titlebox).find('.wordList').append(magnet);
 }
 
-function buildWords(theme, words) {
-	$(".titleLine").text(theme);
+function buildWords(titlebox, theme, words) {
+	$(titlebox).find(".titleLine").text(theme);
 
 	words.sort();
 
 	for (var idx in words) {
-		buildWord(words[idx]);
+		buildWord(titlebox, words[idx]);
 	}
 
 	wordMode();
@@ -112,7 +112,8 @@ function buildWords(theme, words) {
 
 function getWords(themeId) {
 	$.getJSON('/api/newpoem/' + themeId, function(data) {
-		buildWords(data.theme, data.words);
+		buildWords($("#thematicWords"), "thematic words", data.words);
+		buildWords($("#commonWords"), "common words", data.common_words);
 	});
 }
 

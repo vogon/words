@@ -37,12 +37,13 @@ class WordsAPI < Sinatra::Base
 		return 204 if theme_id == 0
 
 		words = THEMES[theme_id - 1].words
-		words += COMMON_THEME.words if COMMON_THEME
+		common_words = COMMON_THEME.words if COMMON_THEME
 
 		result = {
 			id: 0,
 			theme: THEMES[theme_id - 1].theme,
-			words: words
+			words: words,
+			common_words: (common_words or [])
 		}
 
 		return JSON.dump(result)
