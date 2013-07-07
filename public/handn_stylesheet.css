@@ -225,7 +225,7 @@ ul{
 
 #composerDragDrop{
 	width:auto;
-	height:170px;
+	height:190px;
 	background:#EFEFEF;
 }
 
@@ -263,7 +263,7 @@ ul{
 }
 
 .composerLineNumber{
-	color: #BBB;
+	/*color: #BBB;*/
 }
 
 .hidden{
@@ -279,5 +279,12 @@ ul{
 }
 
 #composeTitle.select-title{
+	color: #BBB;
+}
+
+.composerTable{
+	padding-left: 15px;
+	padding-top: 10px;
+	line-height: 40px;
 	color: #BBB;
 }
