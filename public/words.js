@@ -103,7 +103,7 @@ $(window).load(function () {
 	$(".composerLineContent").on("dragover", handleMagnetDragOver);
 	$(".composerLineContent").on("drop", dropIntoComposer);
 
-	$.getJSON('/api/newpoem/1', function(data) {
+	$.getJSON('/api/newpoem/2', function(data) {
 		buildWords(data.theme, data.words);
 	});
 

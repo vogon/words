@@ -5,7 +5,7 @@ require 'slim'
 require './poem'
 require './theme'
 
-THEMES = Theme.loadAll("./wordlists")
+THEMES, COMMON_THEME = Theme.loadAll("./wordlists")
 print THEMES
 
 POEMS = []
@@ -21,10 +21,13 @@ class WordsAPI < Sinatra::Base
 		theme_id = params[:theme_id].to_i
 		return 204 if theme_id == 0
 
+		words = THEMES[theme_id - 1].words
+		words += COMMON_THEME.words if COMMON_THEME
+
 		result = {
 			id: 0,
 			theme: THEMES[theme_id - 1].theme,
-			words: THEMES[theme_id - 1].words
+			words: words
 		}
 
 		return JSON.dump(result)
