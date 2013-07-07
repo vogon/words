@@ -290,6 +290,10 @@ ul{
 	color: #BBB;
 }
 
+#authorName.nonymous {
+	color: black;
+}
+
 .composerTable{
 	padding-left: 15px;
 	padding-top: 10px;

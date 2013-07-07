@@ -129,6 +129,19 @@ function showSaved() {
 	$("#savedMessage").removeClass("hidden");
 }
 
+function authorChanged() {
+	var author = $("#authorName").text();
+
+	// disgusting hack to deal with the poor behavior of doubleclicks
+	if (author.indexOf("(edit)") != -1) {
+		author = author.replace("(edit)", "");
+		$("#authorName").text(author);
+	}
+
+	$("#authorName").addClass("nonymous");
+	$("#authorEditHint").addClass("hidden");
+}
+
 function submit() {
 	var lines = [];
 
@@ -156,6 +169,8 @@ $(window).load(function () {
 
 	$(".composerLineContent").on("dragover", handleMagnetDragOver);
 	$(".composerLineContent").on("drop", dropIntoComposer);
+
+	$("#authorName").on("keyup", authorChanged);
 
 	getThemes();
 
