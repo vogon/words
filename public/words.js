@@ -83,6 +83,14 @@ function clearComposer() {
 	$(".composerLineContent").empty();
 }
 
+function startEditingAuthor() {
+	var dom = $("#authorName")[0];
+	dom.focus();
+	window.getSelection().selectAllChildren(dom);
+
+	return true;
+}
+
 function themeMode() {
 	$('.wordTitlebox').addClass('hidden');
 	$('.realTitlebox').removeClass('hidden');
@@ -158,14 +166,6 @@ function showSaved() {
 }
 
 function authorChanged() {
-	var author = $("#authorName").text();
-
-	// disgusting hack to deal with the poor behavior of doubleclicks
-	if (author.indexOf("(edit)") != -1) {
-		author = author.replace("(edit)", "");
-		$("#authorName").text(author);
-	}
-
 	$("#authorName").addClass("nonymous");
 	$("#authorEditHint").addClass("hidden");
 }
@@ -201,6 +201,9 @@ $(window).load(function () {
 	$(".composerLineContent").on("drop", dropIntoComposer);
 
 	$("#authorName").on("keyup", authorChanged);
+
+	$("#authorName").on("focus", startEditingAuthor);
+	$("#authorEditHint").click(startEditingAuthor);
 
 	getThemes();
 
