@@ -133,6 +133,10 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/' do
+		redirect '/compose', 303
+	end
+
+	get '/compose' do
 		slim :compose_page_words
 	end
 
