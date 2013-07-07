@@ -208,10 +208,6 @@ ul{
 }
 
 /*----------------------------------------------composer styling------------------------------------------------*/
-#composeTitleSelect{
-	color:#BBBBBB;
-}
-
 #composeModal{
 	position:fixed;
 	left:300px;
@@ -275,5 +271,13 @@ ul{
 }
 
 #composeAuthor{
+	color: #BBB;
+}
+
+#composeTitle{
+	color: black;
+}
+
+#composeTitle.select-title{
 	color: #BBB;
 }
