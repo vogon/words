@@ -12,7 +12,11 @@ POEMS = []
 
 class WordsAPI < Sinatra::Base
 	get '/api/themes' do
-		themes = THEMES.map { |th| th.theme }
+		themes = {}
+
+		THEMES.each_with_index do |theme, i|
+			themes[i + 1] = theme.theme
+		end
 
 		return JSON.dump(themes)
 	end

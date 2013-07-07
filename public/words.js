@@ -56,6 +56,16 @@ function dropIntoWordList(e) {
 	realDropTarget.append(draggingMagnet);
 }
 
+function themeMode() {
+	$('.wordTitlebox').addClass('hidden');
+	$('.realTitlebox').removeClass('hidden');
+}
+
+function wordMode() {
+	$('.realTitlebox').addClass('hidden');
+	$('.wordTitlebox').removeClass('hidden');
+}
+
 function buildWord(word) {
 	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div><br/>');
 	magnet.children(".magnet").text(word);
@@ -71,10 +81,43 @@ function buildWords(theme, words) {
 	for (var idx in words) {
 		buildWord(words[idx]);
 	}
+
+	wordMode();
 }
 
-function buildTitle(title) {
+function getWords(themeId) {
+	$.getJSON('/api/newpoem/' + themeId, function(data) {
+		buildWords(data.theme, data.words);
+	});
+}
 
+function chooseTheme(eventObject) {
+	// walk up to the theme ID
+	var themeId = $(this).closest('.themeId');
+	getWords(themeId[0].themeId);
+}
+
+function buildTheme(id, theme) {
+	var dom = $('<li class="themeId"><h1 class="title"></h1></li>');
+	dom.children(".title").text(theme);
+	dom[0].themeId = id;
+
+	dom.on("click", chooseTheme);
+	$('.titleList').append(dom);
+}
+
+function buildThemes(themes) {
+	for (var id in themes) {
+		buildTheme(id, themes[id]);
+	}
+
+	themeMode();
+}
+
+function getThemes() {
+	$.getJSON('/api/themes', function(data) {
+		buildThemes(data);
+	});
 }
 
 function showSaved() {
@@ -103,9 +146,7 @@ $(window).load(function () {
 	$(".composerLineContent").on("dragover", handleMagnetDragOver);
 	$(".composerLineContent").on("drop", dropIntoComposer);
 
-	$.getJSON('/api/newpoem/2', function(data) {
-		buildWords(data.theme, data.words);
-	});
+	getThemes();
 
 	console.log("hey hey hey");
 });
