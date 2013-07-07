@@ -72,14 +72,14 @@ function buildWords(words) {
 }
 
 function buildTitle(title) {
-	
+
 }
 
 function submit() {
 	var lines = [];
 
 	$('.composerLineContent').each(function (index) {
-		lines[index] = $(this).children('.magnet')
+		lines[index] = $(this).find('.magnet')
 							  .map(function (index, word) { return word.innerText })
 							  .get();
 	});
@@ -90,7 +90,7 @@ function submit() {
 }
 
 $(window).load(function () {
-	$(".saveButton").click(submit);
+	$("#saveButton").click(submit);
 	$(".wordList").on("dragover", handleMagnetDragOver);
 	$(".wordList").on("drop", dropIntoWordList);
 

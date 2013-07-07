@@ -31,6 +31,7 @@ class WordsAPI < Sinatra::Base
 
 	post '/api/submitpoem' do
 		lines = JSON.parse(request.body.read)
+		print lines
 
 		POEMS << Poem.new(lines)
 
