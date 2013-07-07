@@ -10,8 +10,11 @@ class Theme
 				if (subdir != "." && subdir != "..") then
 					theme = Theme.new("#{path}/#{subdir}")
 
-					common_theme = theme if (subdir == "common")
-					themes << theme
+					if (subdir == "common") then
+						common_theme = theme
+					else
+						themes << theme
+					end
 				end
 			end
 		end
