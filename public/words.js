@@ -67,7 +67,7 @@ function wordMode() {
 }
 
 function buildWord(word) {
-	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div><br/>');
+	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
 	magnet.children(".magnet").text(word);
 
 	magnet.on("dragstart", handleMagnetDragStart);

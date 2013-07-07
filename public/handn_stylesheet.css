@@ -106,8 +106,9 @@ ul{
 .words{
 	padding:7px;
 	margin-bottom:4px;
+	margin-right:4px;
 	background-color:#FAFAFA;
-	min-width:50px;
+	/*min-width:50px;*/
 	/*float: left;*/
     /*clear: left;*/
     display: inline-block;
@@ -263,6 +264,7 @@ ul{
 }
 
 .composerLineNumber{
+	line-height: 40px;
 	/*color: #BBB;*/
 }
 
@@ -285,6 +287,5 @@ ul{
 .composerTable{
 	padding-left: 15px;
 	padding-top: 10px;
-	line-height: 40px;
 	color: #BBB;
 }
