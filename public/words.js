@@ -65,7 +65,9 @@ function buildWord(word) {
 	$('.wordList').append(magnet);
 }
 
-function buildWords(words) {
+function buildWords(theme, words) {
+	$(".titleLine").text(theme);
+
 	for (var idx in words) {
 		buildWord(words[idx]);
 	}
@@ -102,7 +104,7 @@ $(window).load(function () {
 	$(".composerLineContent").on("drop", dropIntoComposer);
 
 	$.getJSON('/api/newpoem/1', function(data) {
-		buildWords(data.words);
+		buildWords(data.theme, data.words);
 	});
 
 	console.log("hey hey hey");

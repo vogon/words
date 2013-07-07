@@ -23,6 +23,7 @@ class WordsAPI < Sinatra::Base
 
 		result = {
 			id: 0,
+			theme: THEMES[theme_id - 1].theme,
 			words: THEMES[theme_id - 1].words
 		}
 
