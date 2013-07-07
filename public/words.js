@@ -7,7 +7,7 @@ function handleMagnetDragStart(e) {
 }
 
 function handleMagnetDragEnd(e) {
-	draggingMagnet = undefined;
+	// draggingMagnet = undefined;
 }
 
 function handleMagnetDragOver(e) {
@@ -33,14 +33,27 @@ function dropIntoComposer(e) {
 	dropY = e.originalEvent.y;
 
 	var realDropTarget = $(e.target).closest(".composerLineContent");
-	var magnetClone = $(draggingMagnet).clone(true);
+	var insertMagnet = undefined;
+
+	// if we're dragging the word from the word list, clone it
+	// otherwise, move it
+	if ($(draggingMagnet).closest(".wordList").length > 0) {
+		console.log("dragging from word list; cloning");
+		insertMagnet = $(draggingMagnet).clone(true);
+	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
+		console.log("dragging from composer; moving");
+		insertMagnet = draggingMagnet;
+	} else {
+		console.log("dragging from somewhere else?");
+	}
 
 	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
 		var child = realDropTarget.children()[childIndex];
 
 		if (dropX < $(child).position().left) {
 			console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
-			$(child).before(magnetClone);
+			$(child).before(insertMagnet);
+			draggingMagnet = undefined;
 			return false;
 		} else {
 			console.log("drop X (" + dropX + ") after child " + childIndex + " X (" + $(child).position().left + ")");
@@ -48,12 +61,20 @@ function dropIntoComposer(e) {
 	}
 
 	console.log("drop X (" + dropX + ") after all children, appending");
-	realDropTarget.append(magnetClone);
+	realDropTarget.append(insertMagnet);
+	draggingMagnet = undefined;
 	return false;
 }
 
 function dropIntoWordList(e) {
-	draggingMagnet.remove();
+	if ($(draggingMagnet).closest(".wordList").length > 0) {
+		console.log("moving from word list; do nothing");
+	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
+		console.log("moving from composer; delete");
+		draggingMagnet.remove();
+	} else {
+		console.log("moving from somewhere else?");
+	}
 }
 
 function themeMode() {
