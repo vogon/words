@@ -8,6 +8,11 @@ require './theme'
 THEMES, COMMON_THEME = Theme.loadAll("./wordlists")
 print THEMES
 
+require './dbmodels'
+
+initialize_models?
+
+# todo: depersist all poems
 POEMS = []
 
 class WordsAPI < Sinatra::Base
@@ -41,7 +46,11 @@ class WordsAPI < Sinatra::Base
 		lines = JSON.parse(request.body.read)
 		print lines
 
-		POEMS << Poem.new(lines)
+		next_id = POEMS.length + 1
+		poem = Poem.new(next_id, "<<<temp>>>", "Cliff", lines)
+
+		POEMS << poem
+		poem.persist!
 
 		200
 	end
@@ -61,5 +70,9 @@ class WordsAPI < Sinatra::Base
 
 	get '/' do
 		slim :compose_page_words
+	end
+
+	get '/poems' do
+		slim :view_page
 	end
 end
