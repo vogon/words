@@ -108,14 +108,15 @@ ul{
 	background-color:#FAFAFA;
 	min-width:50px;
 	float: left;
-    clear: left;	
+    clear: left;
+    display: inline;
 }
 
 .wordList{
 	padding-top:7px;
 }
 
-.wordList h1{
+.words h1{
 	font-weight:normal;
 }
 
@@ -203,4 +204,8 @@ ul{
 /*Colin's hacks*/
 .composerLineContent{
 	width: 100%;
+}
+
+.composerLineContent .words{
+	clear: none;
 }

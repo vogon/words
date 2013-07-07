@@ -87,7 +87,7 @@ $(window).load(function () {
 	$(".composerLineContent").on("dragover", handleMagnetDragOver);
 	$(".composerLineContent").on("drop", handleMagnetDrop);
 
-	$.getJSON('/api/newpoem', function(data) {
+	$.getJSON('/api/newpoem/1', function(data) {
 		buildWords(data.words);
 	});
 
