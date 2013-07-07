@@ -1,6 +1,6 @@
 require 'sequel'
 
-connection_string = ENV['POEM_DATABASE_CONN']
+connection_string = ENV['DATABASE_URL']
 
 if connection_string
 	DB = Sequel.connect(connection_string)
