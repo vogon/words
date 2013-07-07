@@ -166,6 +166,7 @@ function showSaved() {
 }
 
 function authorChanged() {
+	$("#authorName").removeClass("anonymous");
 	$("#authorName").addClass("nonymous");
 	$("#authorEditHint").addClass("hidden");
 }
