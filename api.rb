@@ -18,6 +18,8 @@ Db::Poem.all.each do |dbpoem|
 	POEMS << Poem.depersist(dbpoem)
 end
 
+HN_VIEW_API = false
+
 class WordsAPI < Sinatra::Base
 	get '/api/themes' do
 		themes = {}
@@ -69,30 +71,32 @@ class WordsAPI < Sinatra::Base
 		end
 	end
 
-	get '/api/newest' do
-		# sort poems by id, descending
-		poems_by_id = POEMS.sort_by { |poem| -poem.id }
-		result = poems_by_id.take(10)
+	if HN_VIEW_API
+		get '/api/newest' do
+			# sort poems by id, descending
+			poems_by_id = POEMS.sort_by { |poem| -poem.id }
+			result = poems_by_id.take(10)
 
-		print result.inspect
+			print result.inspect
 
-		return JSON.dump(result)
-	end
+			return JSON.dump(result)
+		end
 
-	get '/api/haughtiest' do
-		# sort poems by haughtiness, descending
-		poems_by_haughtiness = POEMS.sort_by { |poem| -poem.haughty }
-		result = poems_by_haughtiness.take(10)
+		get '/api/haughtiest' do
+			# sort poems by haughtiness, descending
+			poems_by_haughtiness = POEMS.sort_by { |poem| -poem.haughty }
+			result = poems_by_haughtiness.take(10)
 
-		return JSON.dump(result)
-	end
+			return JSON.dump(result)
+		end
 
-	get '/api/naughtiest' do
-		# sort poems by naughtiness, descending
-		poems_by_naughtiness = POEMS.sort_by { |poem| -poem.naughty }
-		result = poems_by_naughtiness.take(10)
+		get '/api/naughtiest' do
+			# sort poems by naughtiness, descending
+			poems_by_naughtiness = POEMS.sort_by { |poem| -poem.naughty }
+			result = poems_by_naughtiness.take(10)
 
-		return JSON.dump(result)
+			return JSON.dump(result)
+		end
 	end
 
 	post '/api/haughtify/:id' do
@@ -132,6 +136,26 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/poems' do
-		slim :view_page
+		# sort poems by id, descending
+		poems_by_id = POEMS.sort_by { |poem| -poem.id }
+		result = poems_by_id.take(10)
+
+		slim :view_page, locals: {poems: result, header: :new}
+	end
+
+	get '/poems/haughtiest' do
+		# sort poems by haughtiness, descending
+		poems_by_haughtiness = POEMS.sort_by { |poem| -poem.haughty }
+		result = poems_by_haughtiness.take(10)
+
+		slim :view_page, locals: {poems: result, header: :haughty}
+	end
+
+	get '/poems/naughtiest' do
+		# sort poems by naughtiness, descending
+		poems_by_naughtiness = POEMS.sort_by { |poem| -poem.naughty }
+		result = poems_by_naughtiness.take(10)
+
+		slim :view_page, locals: {poems: result, header: :naughty}
 	end
 end

@@ -1,20 +1,20 @@
 doctype transitional
 html
     head
-        link rel="stylesheet" type="text/css" href="handn_stylesheet.css"
+        link rel="stylesheet" type="text/css" href="/handn_stylesheet.css"
         meta http-equiv="Content-Type" content="text/html; charset=UTF-8"
         title Haughty or Naughty Magnetic Poetry Game
 
 body
 	div id="header"
-    	img src="images/HandN_Logo_Small.png"
+    	img src="/images/HandN_Logo_Small.png"
         ul
   			li 
-            	a href="" New
+            	a href="/poems" New
   			li 
-            	a href="" Haughty
+            	a href="/poems/haughtiest" Haughty
   			li 
-            	a href="" Naughty
+            	a href="/poems/naughtiest" Naughty
     
     div id="naughtyContent"
     
@@ -22,52 +22,33 @@ body
         	div class="contentOptions"
         	
             div class="content"
-            	img src="images/Title_Naughty.png" 
+                - if (header == :haughty) then
+                    img src="/images/Title_Haughty.png"
+                - elsif (header == :naughty) then
+                    img src="/images/Title_Naughty.png"
+                - elsif (header == :new) then
+                    | <<<< new header >>>>
         
-        div class="poemPadder"
-        
-        div class="contentBox"
-         	div class="contentOptions"
-            h1 #1            	
-        	
-            div class="content"
-            	h1 Poem's Title
-                h3 by Cliff
-                p class="poem"
-                	|Hikus are easy
-                    br 
-                	|But sometimes they don't make sense
-                    br 
-                	Refrigerator
-                
-                div class="haughtyButton"
-                	img src="images/Button_Haughty.png" 
-                    h3 56
-                
-                div class="naughtyButton"
-                	img src="images/Button_Naughty.png" 
-                    h3 22
-                              
-        div class="poemPadder"
-        
-        div class="contentBox"
-         	div class="contentOptions"
-            h1 #2            	
-        	
-            div class="content"
-            	h1 Poem's Title
-                h3 by Cliff
-                p class="poem"
-                	|Hikus are easy
-                    br 
-               		|But sometimes they don't make sense
-                	br 
-                	Refrigerator
-                
-                div class="haughtyButton"
-                	img src="images/Button_Haughty.png" 
-                    h3 56          
-                
-                div class="naughtyButton"
-                	img src="images/Button_Naughty.png"
-                    h3 22
+        - poems.each_with_index do |poem, index|
+            div class="poemPadder"
+
+            div class="contentBox"
+             	div class="contentOptions"
+                h1 = "##{index + 1}"
+            	
+                div class="content"
+                	h1 = "#{poem.title}"
+                    h3 = "by #{poem.author}"
+                    p class="poem"
+                        - poem.lines.each_with_index do |line, l_index|
+                            = line.join(' ')
+                            - if l_index != poem.lines.length - 1 then
+                                br
+                    
+                    div class="haughtyButton"
+                    	img src="/images/Button_Haughty.png" 
+                        h3 = "#{poem.haughty}"
+                    
+                    div class="naughtyButton"
+                    	img src="/images/Button_Naughty.png" 
+                        h3 = "#{poem.naughty}"
