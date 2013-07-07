@@ -141,12 +141,15 @@ class WordsAPI < Sinatra::Base
 		slim :compose_page_words
 	end
 
+	require './view_page_helpers'
+
 	get '/poems' do
 		# sort poems by id, descending
 		poems_by_id = POEMS.values.sort_by { |poem| -poem.id }
 		result = poems_by_id.take(10)
 
-		slim :view_page, locals: {poems: result, header: :new}
+		slim :view_page, locals: {poems: result, header: :new, 
+			bake_line: Proc.new { |words| bake_line(words) }}
 	end
 
 	get '/poems/haughtiest' do
@@ -154,7 +157,8 @@ class WordsAPI < Sinatra::Base
 		poems_by_haughtiness = POEMS.values.sort_by { |poem| -poem.haughty }
 		result = poems_by_haughtiness.take(10)
 
-		slim :view_page, locals: {poems: result, header: :haughty}
+		slim :view_page, locals: {poems: result, header: :haughty, 
+			bake_line: Proc.new { |words| bake_line(words) }}
 	end
 
 	get '/poems/naughtiest' do
@@ -162,6 +166,7 @@ class WordsAPI < Sinatra::Base
 		poems_by_naughtiness = POEMS.values.sort_by { |poem| -poem.naughty }
 		result = poems_by_naughtiness.take(10)
 
-		slim :view_page, locals: {poems: result, header: :naughty}
+		slim :view_page, locals: {poems: result, header: :naughty, 
+			bake_line: Proc.new { |words| bake_line(words) }}
 	end
 end

@@ -49,7 +49,7 @@ body
                     h3 = "by #{poem.author}"
                     p class="poem"
                         - poem.lines.each_with_index do |line, l_index|
-                            = line.join(' ')
+                            = bake_line(line)
                             - if l_index != poem.lines.length - 1 then
                                 br
                     
