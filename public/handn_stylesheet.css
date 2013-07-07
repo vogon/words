@@ -47,6 +47,17 @@ h3{
 	font-size:14px;
 	line-height:22px;
 }
+h4{
+	font-family:"Courier New", Courier, monospace;
+	color:black;
+	font-size:14px;
+	font-weight:bold;
+	letter-spacing:2px;
+	line-height:30px;
+	float:left;
+	margin-left:15px;
+}
+
 p{
 	font-family:Georgia, "Times New Roman", Times, serif;
 	color:black;
@@ -337,25 +348,45 @@ ul{
 #landingButtonBox{
 	width:400px;
 	height:50px;
-	margin-top:30px;
+	margin-top:50px;
 	margin-left:auto;
 	margin-right:auto;
 }
 
 #landingComposeButton{
-	background-color:#33CC66;
+	background-color:#DDD;
 	padding:10px;
 	height:30px;
 	float:left;
 	width:160px;
 }
 
+#landingComposeButton img{
+	float:left;
+}
+
 #landingJudgeButton{
-	background-color:#33CC66;
+	background-color:#DDD;
 	padding:10px;
 	height:30px;
 	float:right;
 	width:160px;	
 }
+
+#ComposeButton{
+	position:fixed;
+	left:40px;
+	top:80px;
+	background-color:#EFEFEF;
+	padding:10px;
+	height:30px;
+	float:left;
+	width:160px;
+}
+
+#ComposeButton img{
+	float:left;
+}
+
 
 
