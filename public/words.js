@@ -94,6 +94,8 @@ function getWords(themeId) {
 function chooseTheme(eventObject) {
 	// walk up to the theme ID
 	var themeId = $(this).closest('.themeId');
+	$('#composeTitleSelect').text(themeId.find('.title').text());
+
 	getWords(themeId[0].themeId);
 }
 

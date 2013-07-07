@@ -266,6 +266,14 @@ ul{
 	width: 100%;
 }
 
+.composerLineNumber{
+	color: #BBB;
+}
+
 .hidden{
 	display: none;
+}
+
+#composeAuthor{
+	color: #BBB;
 }
