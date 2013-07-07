@@ -79,6 +79,10 @@ function dropIntoWordList(e) {
 	}
 }
 
+function clearComposer() {
+	$(".composerLineContent").empty();
+}
+
 function themeMode() {
 	$('.wordTitlebox').addClass('hidden');
 	$('.realTitlebox').removeClass('hidden');
@@ -188,6 +192,8 @@ function submit() {
 
 $(window).load(function () {
 	$("#saveButton").click(submit);
+	$("#clearButton").click(clearComposer);
+
 	$(".wordList").on("dragover", handleMagnetDragOver);
 	$(".wordList").on("drop", dropIntoWordList);
 
