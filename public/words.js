@@ -2,6 +2,7 @@ var draggingMagnet = undefined;
 
 function handleMagnetDragStart(e) {
 	// alert("dragstart");
+	e.originalEvent.dataTransfer.setData('text/plain', this.innerText);
 	e.originalEvent.dataTransfer.effectAllowed = 'move';
 	draggingMagnet = this;
 }
@@ -71,9 +72,11 @@ function dropIntoComposer(e) {
 function dropIntoWordList(e) {
 	if ($(draggingMagnet).closest(".wordList").length > 0) {
 		console.log("moving from word list; do nothing");
+		e.preventDefault();
 	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
 		console.log("moving from composer; delete");
-		draggingMagnet.remove();
+		$(draggingMagnet).remove();
+		e.preventDefault();
 	} else {
 		console.log("moving from somewhere else?");
 	}
