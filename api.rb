@@ -12,8 +12,11 @@ require './dbmodels'
 
 initialize_models?
 
-# todo: depersist all poems
 POEMS = []
+
+Db::Poem.all.each do |dbpoem|
+	POEMS << Poem.depersist(dbpoem)
+end
 
 class WordsAPI < Sinatra::Base
 	get '/api/themes' do
@@ -57,12 +60,68 @@ class WordsAPI < Sinatra::Base
 
 	get "/api/poem/:id" do
 		poem_id = params[:id].to_i
-		return 204 if poem_id == 0
-
 		poem = POEMS[poem_id - 1]
 
 		if poem then
 			return poem.to_json
+		else
+			return 204
+		end
+	end
+
+	get '/api/newest' do
+		# sort poems by id, descending
+		poems_by_id = POEMS.sort_by { |poem| -poem.id }
+		result = poems_by_id.take(10)
+
+		print result.inspect
+
+		return JSON.dump(result)
+	end
+
+	get '/api/haughtiest' do
+		# sort poems by haughtiness, descending
+		poems_by_haughtiness = POEMS.sort_by { |poem| -poem.haughty }
+		result = poems_by_haughtiness.take(10)
+
+		return JSON.dump(result)
+	end
+
+	get '/api/naughtiest' do
+		# sort poems by naughtiness, descending
+		poems_by_naughtiness = POEMS.sort_by { |poem| -poem.naughty }
+		result = poems_by_naughtiness.take(10)
+
+		return JSON.dump(result)
+	end
+
+	post '/api/haughtify/:id' do
+		poem_id = params[:id].to_i
+		poem = POEMS[poem_id - 1]
+
+		print poem.inspect
+
+		if poem then
+			poem.haughty += 1
+			poem.persist!
+
+			result = {haughty: poem.haughty, naughty: poem.naughty}
+			return JSON.dump(result)
+		else
+			return 204
+		end
+	end
+
+	post '/api/naughtify/:id' do
+		poem_id = params[:id].to_i
+		poem = POEMS[poem_id - 1]
+
+		if poem then
+			poem.naughty += 1
+			poem.persist!
+
+			result = {haughty: poem.haughty, naughty: poem.naughty}
+			return JSON.dump(result)
 		else
 			return 204
 		end
