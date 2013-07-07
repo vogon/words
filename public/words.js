@@ -71,6 +71,10 @@ function buildWords(words) {
 	}
 }
 
+function buildTitle(title) {
+	
+}
+
 function submit() {
 	var lines = [];
 
