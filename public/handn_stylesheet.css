@@ -89,7 +89,7 @@ ul{
 }
 
 /*--------------------------------------------------title box---------------------------------------------------*/
-#titlebox{
+.titlebox{
 	padding-left:40px;
 	padding-top:40px;
 	padding-bottom:40px;
@@ -106,8 +106,9 @@ ul{
 .words{
 	padding:7px;
 	margin-bottom:4px;
+	margin-right:4px;
 	background-color:#FAFAFA;
-	min-width:50px;
+	/*min-width:50px;*/
 	/*float: left;*/
     /*clear: left;*/
     display: inline-block;
@@ -208,10 +209,6 @@ ul{
 }
 
 /*----------------------------------------------composer styling------------------------------------------------*/
-#composeTitleSelect{
-	color:#BBBBBB;
-}
-
 #composeModal{
 	position:fixed;
 	left:300px;
@@ -229,7 +226,7 @@ ul{
 
 #composerDragDrop{
 	width:auto;
-	height:170px;
+	height:190px;
 	background:#EFEFEF;
 }
 
@@ -259,7 +256,36 @@ ul{
 	padding-left:15px;
 	padding-right:15px;
 	margin-right:15px;
-}/*
-.composerLineContent .words{
-	clear: none;
-}*/
+}
+
+/*Colin's hacks*/
+.composerLineContent{
+	width: 100%;
+}
+
+.composerLineNumber{
+	line-height: 40px;
+	/*color: #BBB;*/
+}
+
+.hidden{
+	display: none;
+}
+
+#composeAuthor{
+	color: #BBB;
+}
+
+#composeTitle{
+	color: black;
+}
+
+#composeTitle.select-title{
+	color: #BBB;
+}
+
+.composerTable{
+	padding-left: 15px;
+	padding-top: 10px;
+	color: #BBB;
+}

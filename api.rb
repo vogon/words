@@ -5,14 +5,18 @@ require 'slim'
 require './poem'
 require './theme'
 
-THEMES = Theme.loadAll("./wordlists")
+THEMES, COMMON_THEME = Theme.loadAll("./wordlists")
 print THEMES
 
 POEMS = []
 
 class WordsAPI < Sinatra::Base
 	get '/api/themes' do
-		themes = THEMES.map { |th| th.theme }
+		themes = {}
+
+		THEMES.each_with_index do |theme, i|
+			themes[i + 1] = theme.theme
+		end
 
 		return JSON.dump(themes)
 	end
@@ -21,9 +25,13 @@ class WordsAPI < Sinatra::Base
 		theme_id = params[:theme_id].to_i
 		return 204 if theme_id == 0
 
+		words = THEMES[theme_id - 1].words
+		words += COMMON_THEME.words if COMMON_THEME
+
 		result = {
 			id: 0,
-			words: THEMES[theme_id - 1].words
+			theme: THEMES[theme_id - 1].theme,
+			words: words
 		}
 
 		return JSON.dump(result)
@@ -31,6 +39,7 @@ class WordsAPI < Sinatra::Base
 
 	post '/api/submitpoem' do
 		lines = JSON.parse(request.body.read)
+		print lines
 
 		POEMS << Poem.new(lines)
 

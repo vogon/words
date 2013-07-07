@@ -56,8 +56,18 @@ function dropIntoWordList(e) {
 	realDropTarget.append(draggingMagnet);
 }
 
+function themeMode() {
+	$('.wordTitlebox').addClass('hidden');
+	$('.realTitlebox').removeClass('hidden');
+}
+
+function wordMode() {
+	$('.realTitlebox').addClass('hidden');
+	$('.wordTitlebox').removeClass('hidden');
+}
+
 function buildWord(word) {
-	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div><br/>');
+	var magnet = $('<div draggable="true" class="words"><h1 class="magnet" /></div>');
 	magnet.children(".magnet").text(word);
 
 	magnet.on("dragstart", handleMagnetDragStart);
@@ -65,37 +75,81 @@ function buildWord(word) {
 	$('.wordList').append(magnet);
 }
 
-function buildWords(words) {
+function buildWords(theme, words) {
+	$(".titleLine").text(theme);
+
 	for (var idx in words) {
 		buildWord(words[idx]);
 	}
+
+	wordMode();
+}
+
+function getWords(themeId) {
+	$.getJSON('/api/newpoem/' + themeId, function(data) {
+		buildWords(data.theme, data.words);
+	});
+}
+
+function chooseTheme(eventObject) {
+	// walk up to the theme ID
+	var themeId = $(this).closest('.themeId');
+	$('#composeTitle').text(themeId.find('.title').text());
+	$('#composeTitle').removeClass("select-title");
+
+	getWords(themeId[0].themeId);
+}
+
+function buildTheme(id, theme) {
+	var dom = $('<li class="themeId"><h1 class="title"></h1></li>');
+	dom.children(".title").text(theme);
+	dom[0].themeId = id;
+
+	dom.on("click", chooseTheme);
+	$('.titleList').append(dom);
+}
+
+function buildThemes(themes) {
+	for (var id in themes) {
+		buildTheme(id, themes[id]);
+	}
+
+	themeMode();
+}
+
+function getThemes() {
+	$.getJSON('/api/themes', function(data) {
+		buildThemes(data);
+	});
+}
+
+function showSaved() {
+	$("#savedMessage").removeClass("hidden");
 }
 
 function submit() {
 	var lines = [];
 
 	$('.composerLineContent').each(function (index) {
-		lines[index] = $(this).children('.magnet')
+		lines[index] = $(this).find('.magnet')
 							  .map(function (index, word) { return word.innerText })
 							  .get();
 	});
 
-	$.post('/api/submitpoem', JSON.stringify(lines), null, 'json');
+	$.post('/api/submitpoem', JSON.stringify(lines), showSaved);
 
 	// return words;
 }
 
 $(window).load(function () {
-	$(".saveButton").click(submit);
+	$("#saveButton").click(submit);
 	$(".wordList").on("dragover", handleMagnetDragOver);
 	$(".wordList").on("drop", dropIntoWordList);
 
 	$(".composerLineContent").on("dragover", handleMagnetDragOver);
 	$(".composerLineContent").on("drop", dropIntoComposer);
 
-	$.getJSON('/api/newpoem/1', function(data) {
-		buildWords(data.words);
-	});
+	getThemes();
 
 	console.log("hey hey hey");
 });

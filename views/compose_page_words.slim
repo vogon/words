@@ -19,9 +19,13 @@ html
 
 		div id="prettyTitleBox"
 
-		div id="titlebox"
-			h3 Titles
+		div class="titlebox wordTitlebox hidden"
+			h3 class="titleLine"
 			div class="wordList"
+
+		div class="titlebox realTitlebox"
+			h3 Titles
+			ul class="titleList"
 
 		div id="composeModal"
 			div class="contentBox"
@@ -32,25 +36,25 @@ html
 			div class="contentBox"
 				div class="contentOptions"
 				div class="content"
-					h1 id="composeTitleSelect" Select a Title
-					h3 by Cliff
+					h1 id="composeTitle" class="select-title" Select a Title
+					h3 id="composeAuthor" by Cliff
 
 			div class="contentBox"
 				div class="contentOptions"
 				div class="content"
 					div id="composerDragDrop"
-						table
+						table class="composerTable"
 							tr class="composerLine"
-								td class="composerLineNumber" 1
+								td class="composerLineNumber" 1.
 								td class="composerLineContent"
 							tr class="composerLine"
-								td class="composerLineNumber" 2
+								td class="composerLineNumber" 2.
 								td class="composerLineContent"
 							tr class="composerLine"
-								td class="composerLineNumber" 3
+								td class="composerLineNumber" 3.
 								td class="composerLineContent"
 							tr class="composerLine"
-								td class="composerLineNumber" 4
+								td class="composerLineNumber" 4.
 								td class="composerLineContent"
 
 			div class="contentBox"
@@ -58,3 +62,5 @@ html
 				div class="content"
 					div id="saveButton" SAVE
 					div id="clearButton" CLEAR
+
+					div id="savedMessage" class="hidden" Saved.

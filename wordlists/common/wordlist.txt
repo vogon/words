@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 a
 above
 after
@@ -60,3 +61,7 @@ with
 .
 !
 ?
+=======
+quux
+foobly
+>>>>>>> 8d01e75cb3bc4edcde8e42faa24ba70678e65c00

@@ -1,18 +1,25 @@
 class Theme
 	def self.loadAll(path)
 		themes = []
+		common_theme = nil
 
 		raise ArgumentError, "path isn't a directory" if !File.directory?(path)
 
 		Dir.open(path) do |dir|
 			dir.each do |subdir|
 				if (subdir != "." && subdir != "..") then
-					themes << Theme.new("#{path}/#{subdir}")
+					theme = Theme.new("#{path}/#{subdir}")
+
+					if (subdir == "common") then
+						common_theme = theme
+					else
+						themes << theme
+					end
 				end
 			end
 		end
 
-		return themes
+		return themes, common_theme
 	end
 
 	def initialize(path)
