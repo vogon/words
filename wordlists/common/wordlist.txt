@@ -61,7 +61,6 @@ yet
 .
 !
 ?
-<<<<<<< HEAD
 these
 this
 at
@@ -76,11 +75,9 @@ your
 make
 Molyneux
 of
-=======
 -ing
 -ed
 -er
 -ment
 -s
 -es
->>>>>>> 051a9107f53778a67d9aab45f6addf054d7a4911
