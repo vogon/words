@@ -50,13 +50,15 @@ function dropIntoComposer(e) {
 	for (var childIndex = 0; childIndex < realDropTarget.children().length; childIndex++) {
 		var child = realDropTarget.children()[childIndex];
 
-		if (dropX < $(child).position().left) {
-			console.log("drop X (" + dropX + ") before child " + childIndex + " X (" + $(child).position().left + ")");
+		var leftCoord = $(child).offset().left + ($(child).width() / 2);
+
+		if (dropX < leftCoord) {
+			console.log("drop X (" + dropX + ") before child " + childIndex + " middle (" + leftCoord + ")");
 			$(child).before(insertMagnet);
 			draggingMagnet = undefined;
 			return false;
 		} else {
-			console.log("drop X (" + dropX + ") after child " + childIndex + " X (" + $(child).position().left + ")");
+			console.log("drop X (" + dropX + ") after child " + childIndex + " middle (" + leftCoord + ")");
 		}
 	}
 
