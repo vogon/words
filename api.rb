@@ -134,7 +134,7 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/' do
-		redirect '/compose', 303
+		slim :land_page
 	end
 
 	get '/compose' do
