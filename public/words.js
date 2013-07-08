@@ -91,13 +91,13 @@ function dropIntoWordList(e) {
 		e.preventDefault();
 	} else if ($(draggingMagnet).closest("#composerDragDrop").length > 0) {
 		console.log("moving from composer; delete");
+		alreadySaved = false;
 		$(draggingMagnet).remove();
 		e.preventDefault();
 	} else {
 		console.log("moving from somewhere else?");
 	}
 
-	alreadySaved = false;
 	updateSaveState();
 }
 
