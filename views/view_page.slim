@@ -45,10 +45,10 @@ body
                     h1 = "##{index + 1}"
             	
                 div class="content"
-                    a href="/poem/#{poem.id}"
+                    a href="/poem/#{poem.id}" class="poem-link"
                 	   h1 = "#{poem.title}"
                     h3 = "by #{poem.author}"
-                    a href="/poem/#{poem.id}"
+                    a href="/poem/#{poem.id}" class="poem-link"
                         p class="poem"
                             - poem.lines.each_with_index do |line, l_index|
                                 = bake_line(line)

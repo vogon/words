@@ -438,5 +438,6 @@ ul{
 	float:left;
 }
 
-
-
+.poem-link{
+	text-decoration: none;
+}
