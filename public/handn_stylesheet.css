@@ -234,6 +234,20 @@ ul{
 	font-weight:normal;
 }
 
+#singlePoem{
+	background-color:#FFF;
+	border:medium #CCC solid;
+	padding-top:50px;
+	position:absolute;
+	top:50%;
+	margin-top:-200px;
+	height:350px;
+	width:700px;
+	left:50%;
+	margin-left:-350px;
+	overflow:visible;
+}
+
 /*----------------------------------------------composer styling------------------------------------------------*/
 #composeModal{
 	position:fixed;
