@@ -169,4 +169,18 @@ class WordsAPI < Sinatra::Base
 		slim :view_page, locals: {poems: result, header: :naughty, 
 			bake_line: Proc.new { |words| bake_line(words) }}
 	end
+
+	get '/poem/:id' do
+		poem_id = params[:id].to_i
+		poem = POEMS[poem_id]
+		result = [poem]
+
+		if poem then
+			slim :view_single_page, locals: {poems: result, 
+				bake_line: Proc.new { |words| bake_line(words) }}
+
+		else
+			404
+		end
+	end
 end

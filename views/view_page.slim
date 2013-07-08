@@ -45,13 +45,15 @@ body
                     h1 = "##{index + 1}"
             	
                 div class="content"
-                	h1 = "#{poem.title}"
+                    a href="/poem/#{poem.id}"
+                	   h1 = "#{poem.title}"
                     h3 = "by #{poem.author}"
-                    p class="poem"
-                        - poem.lines.each_with_index do |line, l_index|
-                            = bake_line(line)
-                            - if l_index != poem.lines.length - 1 then
-                                br
+                    a href="/poem/#{poem.id}"
+                        p class="poem"
+                            - poem.lines.each_with_index do |line, l_index|
+                                = bake_line(line)
+                                - if l_index != poem.lines.length - 1 then
+                                    br
                     
                     div class="haughtyButton"
                     	img src="/images/Button_Haughty.png" 
