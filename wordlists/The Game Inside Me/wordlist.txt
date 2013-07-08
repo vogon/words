@@ -42,3 +42,5 @@ BFG9000
 mature
 press
 head
+boss
+power-up
