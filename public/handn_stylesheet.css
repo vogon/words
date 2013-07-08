@@ -285,6 +285,11 @@ ul{
 	cursor: pointer;
 }
 
+#saveButton.disabled{
+	background:#BBBBBB;
+	cursor: not-allowed;
+}
+
 #clearButton{
 	float:left;
 	font-family:"Courier New", Courier, monospace;

@@ -1,4 +1,5 @@
 var draggingMagnet = undefined;
+var alreadySaved = false;
 
 function handleMagnetDragStart(e) {
 	// alert("dragstart");
@@ -25,6 +26,18 @@ function handleMagnetDragOver(e) {
 		return false;
 	} else {
 		return true;
+	}
+}
+
+function canSave() {
+	return (alreadySaved == false) && ($(".composerLineContent .words").length > 0);
+}
+
+function updateSaveState() {
+	if (canSave()) {
+		$("#saveButton").removeClass("disabled");
+	} else {
+		$("#saveButton").addClass("disabled");
 	}
 }
 
@@ -66,6 +79,9 @@ function dropIntoComposer(e) {
 	console.log("drop X (" + dropX + ") after all children, appending");
 	realDropTarget.append(insertMagnet);
 	draggingMagnet = undefined;
+
+	alreadySaved = false;
+	updateSaveState();
 	return false;
 }
 
@@ -80,6 +96,9 @@ function dropIntoWordList(e) {
 	} else {
 		console.log("moving from somewhere else?");
 	}
+
+	alreadySaved = false;
+	updateSaveState();
 }
 
 function clearComposer() {
@@ -175,6 +194,10 @@ function authorChanged() {
 }
 
 function submit() {
+	if (!canSave()) {
+		return;
+	}
+
 	var lines = [];
 
 	$('.composerLineContent').each(function (index) {
@@ -190,6 +213,8 @@ function submit() {
 	};
 
 	$.post('/api/submitpoem', JSON.stringify(poem), showSaved);
+	alreadySaved = true;
+	updateSaveState();
 
 	// return words;
 }
