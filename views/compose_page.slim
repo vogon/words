@@ -1,31 +1,37 @@
 doctype transitional
 html
 	head
-		link rel="stylesheet" type="text/css" href="handn_stylesheet.css"
+		link rel="stylesheet" type="text/css" href="/h_or_n.css"
+		script src="http://code.jquery.com/jquery-1.10.2.min.js"
+		script src="/compose_page.js"
 		title Haughty or Naughty Magnetic Poetry Game
 
 	body
 		div id="header"
-			img src="images/HandN_Logo_Small.png"
+			a href="/"
+				img src="images/HandN_Logo_Small.png"
 			ul
 				li
-					a href="" New
+					a href="/poems" New
 				li
-					a href="" Haughty
+					a href="/poems/haughtiest" Haughty
 				li
-					a href="" Naughty
+					a href="/poems/naughtiest" Naughty
 
 		div id="prettyTitleBox"
 
-		div id="titlebox"
+		div id="wordTitlebox" class="titlebox wordTitlebox hidden"
+			div id="thematicWords"
+				h3 class="titleLine"
+				div class="wordList"
+
+			div id="commonWords"
+				h3 class="titleLine"
+				div class="wordList"
+
+		div class="titlebox realTitlebox"
 			h3 Titles
 			ul class="titleList"
-				li
-					h1 BBQ
-				li
-					h1 Summer
-				li
-					h1 Fun
 
 		div id="composeModal"
 			div class="contentBox"
@@ -36,16 +42,36 @@ html
 			div class="contentBox"
 				div class="contentOptions"
 				div class="content"
-					h1 id="composeTitleSelect" Select a Title
-					h3 by Cliff
+					h1 id="composeTitle" class="select-title" Select a Title
+					h3 id="composeAuthor"
+						| by&nbsp;
+						span id="authorName" class="anonymous" contenteditable="true"
+							| anonymous
+						
+						span id="authorEditHint" &nbsp;(edit)
 
 			div class="contentBox"
 				div class="contentOptions"
 				div class="content"
 					div id="composerDragDrop"
+						table class="composerTable"
+							tr class="composerLine"
+								td class="composerLineNumber" 1.
+								td class="composerLineContent"
+							tr class="composerLine"
+								td class="composerLineNumber" 2.
+								td class="composerLineContent"
+							tr class="composerLine"
+								td class="composerLineNumber" 3.
+								td class="composerLineContent"
+							tr class="composerLine"
+								td class="composerLineNumber" 4.
+								td class="composerLineContent"
 
 			div class="contentBox"
 				div class="contentOptions"
 				div class="content"
-					div id="saveButton" SAVE
+					div id="saveButton" class="disabled" SAVE
 					div id="clearButton" CLEAR
+
+					div id="savedMessage" class="hidden" Saved.

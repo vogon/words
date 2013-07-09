@@ -138,7 +138,7 @@ class WordsAPI < Sinatra::Base
 	end
 
 	get '/compose' do
-		slim :compose_page_words
+		slim :compose_page
 	end
 
 	require './view_page_helpers'
