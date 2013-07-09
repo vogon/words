@@ -430,7 +430,7 @@ ul{
 #ComposeButton{
 	position:fixed;
 	left:40px;
-	top:80px;
+	top:85px;
 	background-color:#EFEFEF;
 	padding:10px;
 	height:30px;
@@ -445,4 +445,16 @@ ul{
 
 .poem-link{
 	text-decoration: none;
+}
+
+.pageMoveButton{
+	background-color:#EFEFEF;
+	padding:10px;
+	height:30px;
+	width:160px;
+	cursor: pointer;
+}
+
+.pageMoveButton img{
+	float:left;
 }
